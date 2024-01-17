@@ -9,24 +9,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 #region "DB Configuration"
-builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection"),
-    b => b.MigrationsAssembly("ShoppingManagement.UI")));  //Must add this MigrationAssembly, otherwise add-migration will throw error
+builder.Services.AddInfrastructureServices(builder.Configuration);
+//builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection"),
+//    b => b.MigrationsAssembly("ShoppingManagement.UI")));  //Must add this MigrationAssembly, otherwise add-migration will throw error
 #endregion
 
 #region "Dependent Services"
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-//builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+builder.Services.AddApplicationServices();
+//builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+////builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+//builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();           
-builder.Services.AddScoped<ICustomerService, CustomerService>();
+//builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();           
+//builder.Services.AddScoped<ICustomerService, CustomerService>();
 
-builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
-builder.Services.AddScoped<IInventoryService, InventoryService>();
+//builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+//builder.Services.AddScoped<IInventoryService, InventoryService>();
 
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IOrderService, OrderService>();
+//builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+//builder.Services.AddScoped<IOrderService, OrderService>();
 #endregion
 
 #region "Automapper Configuration"
