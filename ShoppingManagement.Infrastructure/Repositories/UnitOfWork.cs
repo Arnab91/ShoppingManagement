@@ -19,12 +19,16 @@ namespace ShoppingManagement.Infrastructure
         public IInventoryRepository InventoryRepository { get; private set; }
 
         public IOrderRepository OrderRepository { get; private set; }
-        public UnitOfWork(ApplicationDBContext dbContext)
+        public UnitOfWork(ApplicationDBContext dbContext, ICustomerRepository _customerRepository,
+                            IInventoryRepository _inventoryRepository, IOrderRepository _orderRepository)
         {
             _dbContext = dbContext;
-            CustomerRepository = new CustomerRepository(_dbContext);
-            InventoryRepository = new InventoryRepository(_dbContext);
-            OrderRepository = new OrderRepository(_dbContext);
+            CustomerRepository = _customerRepository;
+            InventoryRepository = _inventoryRepository;
+            OrderRepository = _orderRepository;
+            //CustomerRepository = new CustomerRepository(_dbContext);
+            //InventoryRepository = new InventoryRepository(_dbContext);
+            //OrderRepository = new OrderRepository(_dbContext);
             //_repositories = new Dictionary<Type, object>();
         }
         public void Dispose()
